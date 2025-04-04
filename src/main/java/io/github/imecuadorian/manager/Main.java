@@ -1,7 +1,6 @@
 package io.github.imecuadorian.manager;
 
 import io.github.imecuadorian.manager.controller.*;
-import io.github.imecuadorian.manager.exception.*;
 import io.github.imecuadorian.manager.model.*;
 import io.github.imecuadorian.manager.util.*;
 
@@ -74,9 +73,7 @@ public class Main {
         String quantityInput = SCANNER.nextLine();
         int quantity = Integer.parseInt(quantityInput);
         try {
-            WAREHOUSE.addStock(code, -quantity);
-        } catch (InsufficientStockException e) {
-            System.out.println("Insufficient stock: " + e.getMessage());
+            WAREHOUSE.saleable(code, -quantity);
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         }

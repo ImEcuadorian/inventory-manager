@@ -1,6 +1,5 @@
 package io.github.imecuadorian.manager.controller;
 
-import io.github.imecuadorian.manager.exception.*;
 import io.github.imecuadorian.manager.model.*;
 import io.github.imecuadorian.manager.service.*;
 
@@ -62,7 +61,7 @@ public class Warehouse implements Service<String, Product>, Saleable<String> {
     }
 
     @Override
-    public void saleable(String key, int quantity) throws InsufficientStockException {
+    public void saleable(String key, int quantity) {
         Optional<Product> productOpt = getById(key);
         if (productOpt.isPresent()) {
             Product product = productOpt.get();
@@ -71,7 +70,7 @@ public class Warehouse implements Service<String, Product>, Saleable<String> {
                 product.setQuantity(currentQuantity - quantity);
                 System.out.println("Purchase successful! Remaining quantity: " + product.getQuantity());
             } else {
-                throw new InsufficientStockException("Insufficient stock for product with ID " + key);
+                System.out.println("Insufficient stock! Current quantity: " + currentQuantity);
             }
         } else {
             System.out.println("Product with ID " + key + " not found.");
